@@ -49,20 +49,6 @@ cuisines <-
 radioButtons("boro_choice", label = h3("Select boro"),
              choices = boros, selected = "Manhattan")
 
-
-#sliderInput widget
-#max_A_pecent <- 1
-#min_A_percent <- 0
-#sliderInput("pecent_A", label = h3("Choose A% range"), 
-#            min = min_A_percent, max = max_A_pecent, value = c(0.2, 0.8))
-
-#max_score = nyc_inspections %>% distinct(score) %>% na.omit %>% max()
-#min_score = nyc_inspections %>% distinct(score) %>% na.omit %>% min()
-
-# sliderInput widget
-#sliderInput("score_range", label = h3("Choose score range"), min = min_score, 
-#        max = max_score, value = c(20, 60))
-
 #selectInput widget
 selectInput("select_critical_flag", label = h3("Select critical flag"), 
     choices = list("Critical" = "Critical", "Not Critical" = "Not Critical", "Not Applicable" = "Not Applicable"), 
@@ -85,9 +71,7 @@ renderPlotly({
             A_num = sum(grade == "A"),
             A_percent = sum(grade == "A")/n(),
             critaical_percent = sum(grade == "A")/n()) %>%
-    filter(boro == input$boro_choice, 
-         #score %in% input$score_range[1]:input$score_range[2]) %>%
-         #A_percent %in% input$pecent_A[1]:input$pecent_A[2]) %>%
+    filter(boro == input$boro_choice,
          critical_flag == input$select_critical_flag) %>%
   mutate(text_label = str_c("Boro: ", boro, '\nCuisine: ', cuisine_description, 
                             '\nnumber of inspection:', num_inspections, '\nnumber of A:', A_num,
@@ -135,9 +119,7 @@ renderPlotly({
                             '\nnumber of inspection:', num_inspections, '\nnumber of A:', A_num,
                             '\n A%:', paste(round(A_percent*100, digits = 2),"%",sep = "")), 
                             '\n critical%:', paste(round(critaical_percent*100, digits = 2),"%",sep = "")) %>%
-  filter(boro == input$boro_choice, 
-         #score %in% input$score_range[1]:input$score_range[2]) %>%
-         #A_percent %in% input$pecent_A[1]:input$pecent_A[2]) %>%
+  filter(boro == input$boro_choice,
          critical_flag == input$select_critical_flag) %>%
   plot_ly(x = ~cuisine_description, y = ~aver_score, color = ~cuisine_description, type = "bar", text = ~text_label) %>%
   layout(showlegend = FALSE)
