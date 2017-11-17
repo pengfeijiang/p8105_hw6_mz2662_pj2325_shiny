@@ -5,6 +5,8 @@ account: pengfeijiang
 server: shinyapps.io
 hostUrl: https://api.shinyapps.io/v1
 appId: 236799
-bundleId: 1081401
+bundleId: 1081627
 url: https://pengfeijiang.shinyapps.io/nyc_restaurant_shiny/
-when: 1510937625.61711
+when: 1510945932.93232
+asMultiple: FALSE
+asStatic: FALSE
